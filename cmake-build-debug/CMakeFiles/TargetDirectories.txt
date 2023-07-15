@@ -1,3 +1,0 @@
-C:/Users/felix/Code/access_sqlite_migrate/cmake-build-debug/CMakeFiles/access_sqlite_migrate.dir
-C:/Users/felix/Code/access_sqlite_migrate/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/felix/Code/access_sqlite_migrate/cmake-build-debug/CMakeFiles/rebuild_cache.dir
