@@ -1,6 +1,6 @@
 #include <string.h>
-
 #include "Log.h"
+#include "SQLite.h"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ Action handleParams(int argc, char *argv[]) {
 // The Main function
 // -----
 int main(int argc, char *argv[]) {
-    // Handle params when
+    // Handle params when there are any
     if (1 < argc) {
         const Action sth = handleParams(argc, argv);
 
@@ -44,6 +44,40 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    Log::debug("Done running");
+    SQLite *db = new SQLite();
+    int rc = db->execute(R"(
+CREATE TABLE users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	username TEXT NOT NULL UNIQUE,
+	password TEXT NOT NULL
+);
+    )");
+
+    if (SQLITE_OK != rc) {
+        cout << db->errorMsg() << endl;
+    }
+
+    rc = db->execute("INSERT INTO users (username, password) VALUES ('felix', 'schindler');");
+
+    if (SQLITE_OK != rc) {
+        cout << db->errorMsg() << endl;
+    }
+
+    rc = db->execute("INSERT INTO users (username, password) VALUES ('florian', 'schindler');");
+
+    if (SQLITE_OK != rc) {
+        cout << db->errorMsg() << endl;
+    }
+
+
+    rc = db->execute("SELECT * FROM users;");
+
+    if (SQLITE_OK != rc) {
+        cout << db->errorMsg() << endl;
+    }
+
+    delete db;
+
+    Log::info("Done running");
     return 0;
 }
