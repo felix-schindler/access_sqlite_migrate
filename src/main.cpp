@@ -1,35 +1,46 @@
 #include "main.h"
+#include <cstring>
 
-int main(int argc, char *argv[]) {
-    if (1 < argc) {
-        handleParams(argc, argv);
-    }
-
-    cout << "Hello world" << endl;
-    return 0;
-}
+// Type declaration
+enum Action {
+    NOTHING = -1,
+    EXIT = 0,
+    EXIT_ERROR = 1,
+};
 
 /**
- * @brief 
- * 
- * @param argc 
- * @param argv 
- * @return true When the program should continue
- * @return false When the program should exit
+ * @brief Handles arguments
+ *
+ * @param argc Argument count
+ * @param argv Arguments
+ * @return ACTION
  */
-bool handleParams(int argc, char *argv[]) {
+Action handleParams(int argc, char *argv[]) {
     for (int i = 1; i < argc; ++i) {
         // If argument is --help
-        if (strcmp(argv[1], "--help") == 0) {
-            cout << "Help!" << endl;
-            break;
+        if (strcmp(argv[i], "--help") == 0) {
+            return Action::EXIT;
+        } else if (strcmp(argv[i], "--no-log") == 0) {
+            return Action::NOTHING;
         }
-
-        if (strcmp(argv[1], "--no-log") == 0) {
-            cout << "No log!" << endl;
-            break;
-        }
-
-        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
     }
+
+    return Action::NOTHING;
+}
+
+// -----
+// The Main function
+// -----
+int main(int argc, char *argv[]) {
+    // Handle params when
+    if (1 < argc) {
+        const Action sth = handleParams(argc, argv);
+
+        if (Action::NOTHING != sth) {
+            return sth;
+        }
+    }
+
+    Log::debug("Done running");
+    return 0;
 }
