@@ -6,9 +6,9 @@ using namespace std;
 
 // Type declaration
 enum Action {
-    NOTHING = -1,
-    EXIT = 0,
-    EXIT_ERROR = 1,
+	NOTHING = -1,
+	EXIT = 0,
+	EXIT_ERROR = 1,
 };
 
 /**
@@ -19,70 +19,70 @@ enum Action {
  * @return ACTION
  */
 Action handleParams(int argc, char *argv[]) {
-    for (int i = 1; i < argc; ++i) {
-        // If argument is --help
-        if (strcmp(argv[i], "--help") == 0) {
-            return Action::EXIT;
-        } else if (strcmp(argv[i], "--no-log") == 0) {
-            return Action::NOTHING;
-        }
-    }
+	for (int i = 1; i < argc; ++i) {
+		// If argument is --help
+		if (strcmp(argv[i], "--help") == 0) {
+			return Action::EXIT;
+		} else if (strcmp(argv[i], "--no-log") == 0) {
+			return Action::NOTHING;
+		}
+	}
 
-    return Action::NOTHING;
+	return Action::NOTHING;
 }
 
 // -----
 // The Main function
 // -----
 int main(int argc, char *argv[]) {
-    // Handle params when there are any
-    if (1 < argc) {
-        const Action sth = handleParams(argc, argv);
+	// Handle params when there are any
+	if (1 < argc) {
+		const Action sth = handleParams(argc, argv);
 
-        if (Action::NOTHING != sth) {
-            return sth;
-        }
-    }
+		if (Action::NOTHING != sth) {
+			return sth;
+		}
+	}
 
-    try {
-        SQLite *db = new SQLite();
-        int rc = db->execute(R"(
+	try {
+		SQLite *db = new SQLite();
+		int rc = db->execute(R"(
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		username TEXT NOT NULL UNIQUE,
+		password TEXT NOT NULL
 );
-        )");
+		)");
 
-        if (SQLITE_OK != rc) {
-            cout << db->errorMsg() << endl;
-        }
+		if (SQLITE_OK != rc) {
+				cout << db->errorMsg() << endl;
+		}
 
-        rc = db->execute("INSERT INTO users (username, password) VALUES ('felix', 'schindler');");
+		rc = db->execute("INSERT INTO users (username, password) VALUES ('felix', 'schindler');");
 
-        if (SQLITE_OK != rc) {
-            cout << db->errorMsg() << endl;
-        }
+		if (SQLITE_OK != rc) {
+				cout << db->errorMsg() << endl;
+		}
 
-        rc = db->execute("INSERT INTO users (username, password) VALUES ('florian', 'schindler');");
+		rc = db->execute("INSERT INTO users (username, password) VALUES ('florian', 'schindler');");
 
-        if (SQLITE_OK != rc) {
-            cout << db->errorMsg() << endl;
-        }
+		if (SQLITE_OK != rc) {
+				cout << db->errorMsg() << endl;
+		}
 
 
-        rc = db->execute("SELECT * FROM users;");
+		rc = db->execute("SELECT * FROM users;");
 
-        if (SQLITE_OK != rc) {
-            cout << db->errorMsg() << endl;
-        }
+		if (SQLITE_OK != rc) {
+				cout << db->errorMsg() << endl;
+		}
 
-        delete db;
-    } catch (const string &error) {
-        Log::error(error);
-        return 1;
-    }
+		delete db;
+	} catch (const string &error) {
+		Log::error(error);
+		return 1;
+	}
 
-    Log::info("Done running");
-    return 0;
+	Log::info("Done running");
+	return 0;
 }

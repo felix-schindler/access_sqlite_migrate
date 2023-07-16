@@ -8,8 +8,8 @@
 #pragma once
 
 class AccessDB {
-    AccessDB();
-    ~AccessDB();
+	AccessDB();
+	~AccessDB();
 };
 
 

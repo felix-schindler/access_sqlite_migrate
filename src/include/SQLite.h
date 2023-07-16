@@ -16,13 +16,13 @@ using namespace std;
 
 class SQLite {
 private:
-    sqlite3 *db;
-    char *errorMessage;
+	sqlite3 *db;
+	char *errorMessage;
 public:
-    SQLite();
-    ~SQLite();
-    int execute(const string query);
-    string errorMsg();
+	SQLite();
+	~SQLite();
+	int execute(const string query);
+	string errorMsg();
 };
 
 #endif //ACCESS_SQLITE_MIGRATE_SQLITE_H
