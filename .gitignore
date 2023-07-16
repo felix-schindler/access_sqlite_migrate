@@ -1,5 +1,6 @@
 # Custom
 cmake-build-*/
+*.mdb
 
 # CMake template
 CMakeLists.txt.user

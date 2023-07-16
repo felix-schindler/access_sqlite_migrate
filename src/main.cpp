@@ -1,6 +1,7 @@
 #include <string.h>
 #include "Log.h"
 #include "SQLite.h"
+#include "AccessDB.h"
 
 using namespace std;
 
@@ -70,7 +71,6 @@ CREATE TABLE users (
 				cout << db->errorMsg() << endl;
 		}
 
-
 		rc = db->execute("SELECT * FROM users;");
 
 		if (SQLITE_OK != rc) {
@@ -81,6 +81,18 @@ CREATE TABLE users (
 	} catch (const string &error) {
 		Log::error(error);
 		return 1;
+	}
+
+	{
+		AccessDB *db = new AccessDB();
+
+		bool rc = db->connect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=KVVDat.mdb;");
+		if (!rc) {
+			Log::error("Could not connect to database");
+			return 1;
+		}
+
+		delete db;
 	}
 
 	Log::info("Done running");

@@ -7,9 +7,21 @@
 
 #pragma once
 
+#include <sql.h>
+#include <sqlext.h>
+
 class AccessDB {
+private:
+	SQLHANDLE sqlenvhandle;
+	SQLHANDLE sqlconnectionhandle;
+	SQLHANDLE sqlstatementhandle;
+public:
 	AccessDB();
 	~AccessDB();
+
+	bool connect(const char* connStr);
+	void disconnect();
+	bool execute(const char* query);
 };
 
 
