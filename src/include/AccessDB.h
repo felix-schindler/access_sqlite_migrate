@@ -5,6 +5,7 @@
 #ifndef ACCESS_SQLITE_MIGRATE_ACCESSDB_H
 #define ACCESS_SQLITE_MIGRATE_ACCESSDB_H
 
+#pragma once
 
 class AccessDB {
     AccessDB();

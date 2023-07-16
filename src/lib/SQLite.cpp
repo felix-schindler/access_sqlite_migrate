@@ -2,12 +2,12 @@
 // Created by felix on 16.07.2023.
 //
 
-#include "SQLite3.h"
+#include "../include/SQLite.h"
 
 /**
  * Opens new in-memory database
  */
-SQLite3::SQLite3() {
+SQLite::SQLite() {
     // Initialize db object
     this->db = nullptr;
 
@@ -23,6 +23,6 @@ SQLite3::SQLite3() {
 /**
  * Closes the database connection
  */
-SQLite3::~SQLite3() {
+SQLite::~SQLite() {
     sqlite3_close(db);
 }

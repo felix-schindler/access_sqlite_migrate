@@ -8,6 +8,8 @@
 #pragma once
 
 #include <iostream>
+#include "Log.h"
+
 using namespace std;
 
 #endif //ACCESS_SQLITE_MIGRATE_MAIN_H

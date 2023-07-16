@@ -2,11 +2,13 @@
 // Created by felix on 16.07.2023.
 //
 
-#include <iostream>
-using namespace std;
-
 #ifndef ACCESS_SQLITE_MIGRATE_LOG_H
 #define ACCESS_SQLITE_MIGRATE_LOG_H
+
+#pragma once
+
+#include <iostream>
+using namespace std;
 
 enum class TerminalColor {
     RESET = 0,
@@ -39,6 +41,10 @@ private:
     }
 
 public:
+    static void debug(const string &msg) {
+        cout << "[DEBUG] " << msg << endl;
+    }
+
     static void info(const string &msg) {
         cout << Log::blue("[INFO]") << " " << msg << endl;
     }
