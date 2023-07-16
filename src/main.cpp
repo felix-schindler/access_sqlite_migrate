@@ -1,5 +1,8 @@
-#include "main.h"
-#include <cstring>
+#include <string.h>
+
+#include "Log.h"
+
+using namespace std;
 
 // Type declaration
 enum Action {
