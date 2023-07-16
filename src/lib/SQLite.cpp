@@ -53,14 +53,14 @@ string SQLite::errorMsg() {
 int printData(void* data, int argc, char** argv, char** columnNames) {
     for (int i = 0; i < argc; i++) {
         if (0 != i) {
-          	cout << " | ";
+              cout << " | ";
         }
-		cout << columnNames[i];
+        cout << columnNames[i];
     }
 
-	cout << endl;
+    cout << endl;
 
-	for (int i = 0; i < argc; i++) {
+    for (int i = 0; i < argc; i++) {
         if (0 != i) {
             cout << " | ";
         }
@@ -69,5 +69,5 @@ int printData(void* data, int argc, char** argv, char** columnNames) {
 
     cout << endl;
 
-	return 0;
+    return 0;
 }

@@ -44,39 +44,44 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    SQLite *db = new SQLite();
-    int rc = db->execute(R"(
+    try {
+        SQLite *db = new SQLite();
+        int rc = db->execute(R"(
 CREATE TABLE users (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	username TEXT NOT NULL UNIQUE,
-	password TEXT NOT NULL
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
 );
-    )");
+        )");
 
-    if (SQLITE_OK != rc) {
-        cout << db->errorMsg() << endl;
+        if (SQLITE_OK != rc) {
+            cout << db->errorMsg() << endl;
+        }
+
+        rc = db->execute("INSERT INTO users (username, password) VALUES ('felix', 'schindler');");
+
+        if (SQLITE_OK != rc) {
+            cout << db->errorMsg() << endl;
+        }
+
+        rc = db->execute("INSERT INTO users (username, password) VALUES ('florian', 'schindler');");
+
+        if (SQLITE_OK != rc) {
+            cout << db->errorMsg() << endl;
+        }
+
+
+        rc = db->execute("SELECT * FROM users;");
+
+        if (SQLITE_OK != rc) {
+            cout << db->errorMsg() << endl;
+        }
+
+        delete db;
+    } catch (const string &error) {
+        Log::error(error);
+        return 1;
     }
-
-    rc = db->execute("INSERT INTO users (username, password) VALUES ('felix', 'schindler');");
-
-    if (SQLITE_OK != rc) {
-        cout << db->errorMsg() << endl;
-    }
-
-    rc = db->execute("INSERT INTO users (username, password) VALUES ('florian', 'schindler');");
-
-    if (SQLITE_OK != rc) {
-        cout << db->errorMsg() << endl;
-    }
-
-
-    rc = db->execute("SELECT * FROM users;");
-
-    if (SQLITE_OK != rc) {
-        cout << db->errorMsg() << endl;
-    }
-
-    delete db;
 
     Log::info("Done running");
     return 0;
