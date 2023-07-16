@@ -86,7 +86,7 @@ CREATE TABLE users (
 	{
 		AccessDB *db = new AccessDB();
 
-		bool rc = db->connect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=KVVDat.mdb;");
+		bool rc = db->connect("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=dat.mdb;");
 		if (!rc) {
 			Log::error("Could not connect to database");
 			return 1;
